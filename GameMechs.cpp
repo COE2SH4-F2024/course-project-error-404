@@ -11,6 +11,8 @@ GameMechs::GameMechs()
     i = 11;
 
     char ch = 'b';
+
+    char hhi;
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
