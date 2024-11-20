@@ -14,6 +14,7 @@ GameMechs::GameMechs()
     //i like cake
     //Rahimeen 
     int y = 5;
+    //Rahimeen     // Karthik
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
