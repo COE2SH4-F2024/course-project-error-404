@@ -12,6 +12,8 @@ GameMechs::GameMechs()
     // This is a commit test  
 
     //i like cake
+    //Rahimeen 
+    int y = 5;
     //Rahimeen     // Karthik
     i = 1;
 }
