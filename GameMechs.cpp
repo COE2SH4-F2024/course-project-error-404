@@ -6,6 +6,8 @@ GameMechs::GameMechs()
 
 
     //This is Rahimeen
+    // This is karthik 
+
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
