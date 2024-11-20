@@ -3,7 +3,7 @@
 GameMechs::GameMechs()
 {
     int i = 7;
-    i = 9;
+    i = 8;
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
