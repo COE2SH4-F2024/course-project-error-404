@@ -2,7 +2,7 @@
 
 GameMechs::GameMechs()
 {
-    // Karthik 
+
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
