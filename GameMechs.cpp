@@ -2,8 +2,12 @@
 
 GameMechs::GameMechs()
 {
-    int i = 7;
-    i = 10;  
+   // karthik 
+   char j , k , i;
+   j = 'a';
+   k = 'b';
+   i = 'c';
+   // K
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
