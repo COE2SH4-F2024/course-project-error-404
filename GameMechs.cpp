@@ -13,7 +13,7 @@ GameMechs::GameMechs()
     char ch = 'b';
 
     char hhi;
-    hhi = '1';
+    hhi = 'h';
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
