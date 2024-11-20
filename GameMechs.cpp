@@ -4,6 +4,9 @@ GameMechs::GameMechs()
 {
     int i = 7;
     i = 9;
+    i = 10;
+
+    char ch;
     i = 10; //jesus
     i = 11;
 
