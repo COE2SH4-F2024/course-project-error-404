@@ -2,20 +2,7 @@
 
 GameMechs::GameMechs()
 {
-    //hello world
-
-
-    //This is Rahimeen
-    // This is karthik
-
-    int i;
-    // This is a commit test  
-
-    //i like cake
-    //Rahimeen 
-    int y = 5;
-    //Rahimeen     // Karthik
-    i = 1;
+    int i = 7;
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
