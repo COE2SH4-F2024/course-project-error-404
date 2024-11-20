@@ -2,15 +2,9 @@
 
 GameMechs::GameMechs()
 {
-
-    //R
-    
-    int i, j , k;
-    i =10;
-    j =15;
-    k =28;
-
-    //R
+    int i = 7;
+    i = 9;
+    i = 10;
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
