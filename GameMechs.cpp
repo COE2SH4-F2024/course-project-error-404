@@ -3,6 +3,9 @@
 GameMechs::GameMechs()
 {
     //hello world
+
+    // This is karthik 
+
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
