@@ -4,6 +4,7 @@ GameMechs::GameMechs()
 {
     int i = 7;
     i = 9;
+    i = 10;
     i = 11;
 }
 
