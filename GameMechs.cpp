@@ -5,6 +5,9 @@ GameMechs::GameMechs()
     int i = 7;
     i = 9;
     i = 10; //jesus
+    i = 11;
+
+    char ch = 'b';
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
