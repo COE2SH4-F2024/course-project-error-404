@@ -8,11 +8,12 @@ GameMechs::GameMechs()
     //This is Rahimeen
     // This is karthik
 
-
+    int i;
     // This is a commit test  
 
     //i like cake
     //Rahimeen     // Karthik
+    i = 1;
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
