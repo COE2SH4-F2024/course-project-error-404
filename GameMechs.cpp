@@ -2,7 +2,7 @@
 
 GameMechs::GameMechs()
 {
-    //Rahimeen
+
 }
 
 GameMechs::GameMechs(int boardX, int boardY)

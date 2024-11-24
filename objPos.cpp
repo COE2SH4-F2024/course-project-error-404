@@ -16,7 +16,7 @@ objPos::objPos(int xPos, int yPos, char sym)
     symbol = sym;
 }
 
-// copy constructor
+// copy constructor Rahi
 
 objPos::objPos(const objPos& oldObjPos)
 {
@@ -26,7 +26,7 @@ objPos::objPos(const objPos& oldObjPos)
     symbol = oldObjPos.symbol;
 }
 
-//copy assignment operator
+//copy assignment operator Rahi
 objPos& objPos::operator = (const objPos& oldObjPos)
 {
     if(this == &oldObjPos) return *this;
@@ -39,7 +39,7 @@ objPos& objPos::operator = (const objPos& oldObjPos)
     symbol = oldObjPos.symbol;
 }
 
-//destructor
+//destructor Rahi
 objPos::~objPos()
 {
     delete pos;
@@ -48,6 +48,39 @@ objPos::~objPos()
 
 // Respect the rule of six / minimum four
 // [TODO] Implement the missing special member functions to meet the minimum four rule
+
+// Copy Constructor 
+
+objPos::objPos(const objPos &d)     // delta(self)
+{
+    // initialize data members 
+    
+    symbol = d.symbol;         //string is handled automatically
+    pos = new Pos;      // pointers need allocated memory 
+
+    pos->x = d.pos->x;           // == (*pos).x
+    pos->y = d.pos->y;
+
+}
+
+
+// Copy assignment constructor 
+
+objPos& objPos::operator=(const objPos &d)
+{
+    if(this != &d)
+    // it was nullptr, but optionally you should put &d
+    // i.e. stop self assignment for performance reason
+    {
+        symbol = d.symbol;
+
+         pos->x = d.pos->x;           // == (*pos).x
+         pos->y = d.pos->y;                             //CHECK THE FUNCTION
+
+    }
+    return *this;
+}
+
 
 
 
