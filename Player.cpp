@@ -7,12 +7,16 @@ Player::Player(GameMechs* thisGMRef)
     myDir = STOP;
 
     // more actions to be included
+    playerPos.pos->x = mainGameMechsRef->getBoardSizeX();                      // Kar
+    playerPos.pos->y = mainGameMechsRef->getBoardSizeY();                       
+    playerPos.symbol = '@';                     // Kar
 }
 
 
 Player::~Player()
 {
     // delete any heap members here
+    // only when new is inttii -- kar 
 }
 
 objPos Player::getPlayerPos() const
@@ -25,50 +29,51 @@ objPos Player::getPlayerPos() const
 void Player::updatePlayerDir()
 {
     // PPA3 input processing logic
-    int input = 70;
+    // int input = 70; what is this 
+
+    char input  = mainGameMechsRef->getInput();
     
     if(input != 0)  // if not null character
     {
         switch(input)
         {                      
             case 27:  // escape key exits
-                mainGameMechsRef->setExitTrue();
+                mainGameMechsRef->setExitTrue();  //EXIT FLAG IS NOT BEING hhit
                 break;
 
-            case 72: // Up Arrow Key
-                // move up
-                if (myDir != DOWN)
-                {
-                    myDir = UP;
-                }
-                break;
+            case 'w':                                //Moving UP
+            case 'W':
+                if(myDir != DOWN)                             //Why is it we dont use strring marks 
+                    {
+                        myDir = UP;
+                    }
+                    break;                  
+            case 'a':                                    //Moving Left
+            case 'A':
+                if(myDir != RIGHT)
+                    {
+                        myDir = LEFT;
+                    }
+                    break;
+            case 's':                                    //Moving Down
+            case 'S':
+                if(myDir != UP)
+                    {
+                        myDir = DOWN;
+                    }
+                    break;
+            case 'd':                        //Moving right
+            case 'D':
+                if(myDir != LEFT)
+                    {
+                        myDir = RIGHT;
+                    }
+                    break; 
 
-            case 75: // Left Arrow Key
-                // move left
-                if (myDir != RIGHT)
-                {
-                    myDir = LEFT;
-                }
-                break;
-
-            case 80: // Down Arrow Key
-                // down
-                if (myDir != UP)
-                {
-                    myDir = DOWN;
-                }
-                break; 
-
-            case 77: // Right Arrow Key
-                // right
-                if (myDir != LEFT)
-                {
-                    myDir = RIGHT;
-                }
-                break;
             default:
                 break;
         }
+        //Imm not sure if we need input = 0 anymore , but do check 
         input = 0;
     }
     

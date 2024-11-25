@@ -2,13 +2,18 @@
 #include "MacUILib.h"
 #include "objPos.h"
 
+#include "Player.h"         //kar
+#include "GameMechs.h"    //Kar
+ 
 using namespace std;
 
 #define DELAY_CONST 100000
 
+Player *myplayer ;          //Pointer towards Player class (Dir[enum],Getlpayerpos[objpos],updateplayerdir,Moveplayer)
+
+GameMechs *myGM;            //Pointer towards GameMechs Class (input ,exitFlag ,loseFlag ,score ,boardSizeX ,boardSizeY ,food )
 
 
-bool exitFlag;
 
 void Initialize(void);
 void GetInput(void);
@@ -24,13 +29,15 @@ int main(void)
 
     Initialize();
 
-    while(exitFlag == false)  
+    while(myGM->getExitFlagStatus() == false)  //program updated to retrive get flag from game mechs - kar
     {
         GetInput();
         RunLogic();
         DrawScreen();
         LoopDelay();
     }
+
+
 
     CleanUp();
 
@@ -42,12 +49,24 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    exitFlag = false;
+    myGM = new GameMechs();
+    //myplayer = new Player(nullptr);      //kar
+    myplayer = new Player(myGM);      //kar
+
+ 
 }
 
 void GetInput(void)
 {
-   
+    
+    if(MacUILib_hasChar())
+    {
+        myGM->setInput(myGM->getInput());
+    }
+    char input = myGM->getInput();  //what does it mean choose the correct action 
+
+ 
+    //or is it get set input cuz we be checking for has input 
 }
 
 void RunLogic(void)
@@ -83,7 +102,10 @@ void DrawScreen(void)
     }
     MacUILib_printf("\n");
 
+    //MacUILib_printf("Player Position[x,y] = [%d, %d], %c",  Player.pos->x,Player.pos->y,Player.pos->symbol,   NOT WORKING CHECK                 )
+    myplayer->getPlayerPos(); 
 }
+
 
 void LoopDelay(void)
 {
@@ -94,6 +116,9 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     MacUILib_clearScreen();    
+
+    delete myplayer;
+    delete myGM;
 
     MacUILib_uninit();
 }

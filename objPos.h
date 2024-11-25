@@ -16,8 +16,8 @@ class objPos
 
         objPos();
         objPos(int xPos, int yPos, char sym);
-        objPos(const objPos &d);                // USER-DEFINED copy opertaor 
-        objPos& operator=(const objPos &d);     // USER-DEFINED copy ASSIGNMENT opertaor 
+        //objPos(const objPos &d);                // USER-DEFINED copy opertaor 
+        //objPos& operator=(const objPos &d);     // USER-DEFINED copy ASSIGNMENT opertaor 
 
         
         // Respect the rule of six / minimum four
