@@ -16,6 +16,36 @@ objPos::objPos(int xPos, int yPos, char sym)
     symbol = sym;
 }
 
+// copy constructor Rahi
+
+objPos::objPos(const objPos& oldObjPos)
+{
+    pos = new Pos;
+    pos->x = oldObjPos.pos->x;
+    pos->y = oldObjPos.pos->y;
+    symbol = oldObjPos.symbol;
+}
+
+//copy assignment operator Rahi
+objPos& objPos::operator = (const objPos& oldObjPos)
+{
+    if(this == &oldObjPos) return *this;
+
+    delete pos;
+
+    pos = new Pos;
+    pos->x = oldObjPos.pos->x;
+    pos->y = oldObjPos.pos->y;
+    symbol = oldObjPos.symbol;
+}
+
+//destructor Rahi
+objPos::~objPos()
+{
+    delete pos;
+}
+
+
 // Respect the rule of six / minimum four
 // [TODO] Implement the missing special member functions to meet the minimum four rule
 
