@@ -4,6 +4,11 @@
 
 #include "Player.h"         //kar
 #include "GameMechs.h"    //Kar
+#include "Food.h" //rahi
+
+#include <time.h> //rahi
+
+
  
 using namespace std;
 
@@ -13,6 +18,7 @@ Player *myplayer ;          //Pointer towards Player class (Dir[enum],Getlpayerp
 
 GameMechs *myGM;            //Pointer towards GameMechs Class (input ,exitFlag ,loseFlag ,score ,boardSizeX ,boardSizeY ,food )  //kar
 
+Food *myFoodItem; 
 
 
 void Initialize(void);
@@ -46,12 +52,16 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-   
+    srand(time(NULL));
+
     //myplayer = new Player(nullptr);      //kar
      myGM = new GameMechs();
      myplayer = new Player(myGM);      //kar
+     myFoodItem = new Food();
 
- 
+    myFoodItem->generateFood(myplayer->getPlayerPos());
+    
+    
 }
 
 void GetInput(void)
@@ -80,11 +90,7 @@ void RunLogic(void)
 
     myplayer->updatePlayerDir();
     myplayer->movePlayer();
-    
-    // just added these two lines here.
 
-
-    
 }
 
 void DrawScreen(void)
@@ -98,7 +104,9 @@ void DrawScreen(void)
     length = myGM->getBoardSizeY();
 
 
+
     objPos playerPos = myplayer->getPlayerPos();
+    objPos foodPos = myFoodItem->getFoodPos();
 
     for(int j = 0; j < length; j++)
     {
@@ -110,23 +118,26 @@ void DrawScreen(void)
             }
             else if (i == playerPos.pos->x && j == playerPos.pos->y) 
             {
-                MacUILib_printf("%c", playerPos.getSymbol()); //Dynamic Contents this was wrong before.
+                MacUILib_printf("%c", playerPos.getSymbol()); //Dynamic Contents 
             } 
+            else if (i == foodPos.pos->x && j == foodPos.pos->y)
+            {
+                MacUILib_printf("%c",foodPos.getSymbol());
+            }
             else
             {
-                MacUILib_printf(" "); //Static Contents
+                MacUILib_printf(" ");
             }
         }
         MacUILib_printf("\n"); //moves to next row, after writing on the prev row.
     }
     MacUILib_printf("\n");
 
-    MacUILib_printf("Player Position[x,y] = [%d, %d], %c",  playerPos.pos->x,playerPos.pos->y,playerPos.getSymbol() );// NOT WORKING CHECK                 )
+    MacUILib_printf("Player Position[x, y] = [%d, %d], %c",  playerPos.pos->x,playerPos.pos->y,playerPos.getSymbol() );// NOT WORKING CHECK                 )
+    MacUILib_printf("coorinate is [x, y] = [%d, %d]", foodPos.pos->x, foodPos.pos->y);
     //myplayer->getPlayerPos(); 
     //MacUILib_printf("Current input is %" ) 
     
-
-
 
 }
 
@@ -143,6 +154,7 @@ void CleanUp(void)
 
     delete myplayer;
     delete myGM;
+    delete myFoodItem;
 
     MacUILib_uninit();
 }
