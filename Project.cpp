@@ -78,8 +78,11 @@ void GetInput(void)
 void RunLogic(void)
 {
     // char input = myGM->getInput();  //what does it mean choose the correct action 
-    
+
+    myplayer->updatePlayerDir();
     myplayer->movePlayer();
+    
+    // just added these two lines here.
 
 
     
@@ -89,8 +92,12 @@ void DrawScreen(void)
 {
     MacUILib_clearScreen();
 
-    int width = 20; // for now should change after iteration 1B
-    int length = 10; //for now
+    int width; 
+    int length;
+
+    width = myGM->getBoardSizeX();
+    length = myGM->getBoardSizeY();
+
 
     objPos playerPos = myplayer->getPlayerPos();
 
@@ -102,13 +109,9 @@ void DrawScreen(void)
             {
                 MacUILib_printf("#"); //Static Contents 
             }
-            // else if (i == player.getplayerpos()->x && j == player.getplayerpos()->y) //problem is here cuz to create a player and to do that we need to finish gamemechs (iteration 1B)
-            // {
-            //     MacUILib_printf("@"); //Dynamic Contents !!!SYNTAX ERROR, WRONG CALLS!!!
-            // }
-            else if (i == playerPos.pos->x && j == playerPos.pos->y) //problem is here cuz to create a player and to do that we need to finish gamemechs (iteration 1B)
+            else if (i == playerPos.pos->x && j == playerPos.pos->y) 
             {
-                MacUILib_printf("@"); //Dynamic Contents
+                MacUILib_printf("%c", playerPos.getSymbol()); //Dynamic Contents this was wrong before.
             }
             else
             {
