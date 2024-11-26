@@ -9,7 +9,7 @@ Player::Player(GameMechs* thisGMRef)
     // more actions to be included
     playerPos.pos->x = mainGameMechsRef->getBoardSizeX();                      // Kar
     playerPos.pos->y = mainGameMechsRef->getBoardSizeY();                       
-    playerPos.symbol = '@';                     // Kar
+    playerPos.symbol = '@';                                                   // Kar
 }
 
 

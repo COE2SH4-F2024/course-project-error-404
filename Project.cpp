@@ -9,9 +9,9 @@ using namespace std;
 
 #define DELAY_CONST 100000
 
-Player *myplayer ;          //Pointer towards Player class (Dir[enum],Getlpayerpos[objpos],updateplayerdir,Moveplayer)
+Player *myplayer ;          //Pointer towards Player class (Dir[enum],Getlpayerpos[objpos],updateplayerdir,Moveplayer) //kar
 
-GameMechs *myGM;            //Pointer towards GameMechs Class (input ,exitFlag ,loseFlag ,score ,boardSizeX ,boardSizeY ,food )
+GameMechs *myGM;            //Pointer towards GameMechs Class (input ,exitFlag ,loseFlag ,score ,boardSizeX ,boardSizeY ,food )  //kar
 
 
 
@@ -36,9 +36,6 @@ int main(void)
         DrawScreen();
         LoopDelay();
     }
-
-
-
     CleanUp();
 
 }
@@ -49,9 +46,10 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    myGM = new GameMechs();
+   
     //myplayer = new Player(nullptr);      //kar
-    myplayer = new Player(myGM);      //kar
+     myGM = new GameMechs();
+     myplayer = new Player(myGM);      //kar
 
  
 }
@@ -78,8 +76,10 @@ void DrawScreen(void)
 {
     MacUILib_clearScreen();
 
-    int width = 20; // for now should change after iteration 1B
-    int length = 10; //for now
+    int width = 30; // for now should change after iteration 1B
+    int length = 15; //for now
+
+    objPos playerPos = myplayer->getPlayerPos();
 
     for(int j = 0; j < length; j++)
     {
@@ -91,8 +91,12 @@ void DrawScreen(void)
             }
             // else if (i == player.getplayerpos()->x && j == player.getplayerpos()->y) //problem is here cuz to create a player and to do that we need to finish gamemechs (iteration 1B)
             // {
-            //     MacUILib_printf("@"); //Dynamic Contents
+            //     MacUILib_printf("@"); //Dynamic Contents !!!SYNTAX ERROR, WRONG CALLS!!!
             // }
+            else if (i == playerPos.pos->x && j == playerPos.pos->y) //problem is here cuz to create a player and to do that we need to finish gamemechs (iteration 1B)
+            {
+                MacUILib_printf("@"); //Dynamic Contents
+            }
             else
             {
                 MacUILib_printf(" "); //Static Contents
@@ -102,8 +106,11 @@ void DrawScreen(void)
     }
     MacUILib_printf("\n");
 
-    //MacUILib_printf("Player Position[x,y] = [%d, %d], %c",  Player.pos->x,Player.pos->y,Player.pos->symbol,   NOT WORKING CHECK                 )
-    myplayer->getPlayerPos(); 
+    MacUILib_printf("Player Position[x,y] = [%d, %d], %c",  playerPos.pos->x,playerPos.pos->y,playerPos.getSymbol() );// NOT WORKING CHECK                 )
+    //myplayer->getPlayerPos(); 
+
+
+
 }
 
 
