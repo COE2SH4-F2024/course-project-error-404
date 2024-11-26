@@ -66,6 +66,7 @@ void GetInput(void)
     
     if(input == '`')
     {
+        MacUILib_printf("\nGame Over! You exited before winning.\n");
         myGM->setExitTrue();
     }   
     //myplayer->movePlayer();
@@ -78,7 +79,7 @@ void RunLogic(void)
 {
     // char input = myGM->getInput();  //what does it mean choose the correct action 
     
-    
+    myplayer->movePlayer();
 
 
     
@@ -118,9 +119,10 @@ void DrawScreen(void)
     }
     MacUILib_printf("\n");
 
-    MacUILib_printf("Player Position[x,y] = [%d, %d], %c",  playerPos.pos->x,playerPos.pos->y,playerPos.getSymbol() );// NOT WORKING CHECK                 )
+    MacUILib_printf("Player Position[x,y] = [%d, %d], %c \n",  playerPos.pos->x,playerPos.pos->y,playerPos.getSymbol() );// NOT WORKING CHECK                 )
     //myplayer->getPlayerPos(); 
     //MacUILib_printf("Current input is %" ) 
+    MacUILib_printf("current input would be : %s",myGM->getInput() );
     
 
 
