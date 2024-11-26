@@ -7,8 +7,8 @@ Player::Player(GameMechs* thisGMRef)
     myDir = STOP;
 
     // more actions to be included
-    playerPos.pos->x = mainGameMechsRef->getBoardSizeX();                      // Kar
-    playerPos.pos->y = mainGameMechsRef->getBoardSizeY();                       
+    playerPos.pos->x = mainGameMechsRef->getBoardSizeX()/2;                      // Kar
+    playerPos.pos->y = mainGameMechsRef->getBoardSizeY()/2;                       
     playerPos.symbol = '@';                                                   // Kar
 }
 
@@ -34,6 +34,7 @@ void Player::updatePlayerDir()
     char input  = mainGameMechsRef->getInput();
     
     if(input != 0)  // if not null character
+    
     {
         switch(input)
         {                      
@@ -69,9 +70,14 @@ void Player::updatePlayerDir()
                         myDir = RIGHT;
                     }
                     break; 
+            case 'X':  // exit     THIS FLAG IS NOT HITTING //finsihed this bug left for future reference 
+                mainGameMechsRef->setExitTrue();
+                break;
+
 
             default:
                 break;
+
         }
         //Imm not sure if we need input = 0 anymore , but do check 
         input = 0;

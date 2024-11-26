@@ -10,8 +10,8 @@ GameMechs::GameMechs()
     loseFlag = false;
     score = 0;
 
-    boardSizeX = 30;
-    boardSizeY = 15;
+    boardSizeX = 20;
+    boardSizeY = 10;
 }
 
 GameMechs::GameMechs(int boardX, int boardY)

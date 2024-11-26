@@ -76,8 +76,8 @@ void DrawScreen(void)
 {
     MacUILib_clearScreen();
 
-    int width = 30; // for now should change after iteration 1B
-    int length = 15; //for now
+    int width = 20; // for now should change after iteration 1B
+    int length = 10; //for now
 
     objPos playerPos = myplayer->getPlayerPos();
 
