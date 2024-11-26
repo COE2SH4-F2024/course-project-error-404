@@ -56,19 +56,31 @@ void Initialize(void)
 
 void GetInput(void)
 {
+    char input = myGM->getInput();
     
     if(MacUILib_hasChar())
     {
-        myGM->setInput(myGM->getInput());
+        //myGM->setInput(myGM->getInput());
+        myGM->setInput(input);
     }
-    char input = myGM->getInput();  //what does it mean choose the correct action 
-
- 
+    
+    if(input == '`')
+    {
+        myGM->setExitTrue();
+    }   
+    //myplayer->movePlayer();
+    else ;
+     
     //or is it get set input cuz we be checking for has input 
 }
 
 void RunLogic(void)
 {
+    // char input = myGM->getInput();  //what does it mean choose the correct action 
+    
+    
+
+
     
 }
 
@@ -108,6 +120,8 @@ void DrawScreen(void)
 
     MacUILib_printf("Player Position[x,y] = [%d, %d], %c",  playerPos.pos->x,playerPos.pos->y,playerPos.getSymbol() );// NOT WORKING CHECK                 )
     //myplayer->getPlayerPos(); 
+    //MacUILib_printf("Current input is %" ) 
+    
 
 
 

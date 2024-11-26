@@ -17,7 +17,6 @@ objPos::objPos(int xPos, int yPos, char sym)
 }
 
 // copy constructor Rahi & karthik 
-
 objPos::objPos(const objPos& oldObjPos)
 {symbol = oldObjPos.symbol;
     pos = new Pos;
@@ -39,7 +38,7 @@ objPos& objPos::operator = (const objPos& oldObjPos)
     symbol = oldObjPos.symbol;
 }
 
-//destructor Rahi
+//destructor Rahi & karthik
 objPos::~objPos()
 {
     delete pos;
@@ -48,7 +47,6 @@ objPos::~objPos()
 
 // Respect the rule of six / minimum four
 // [TODO] Implement the missing special member functions to meet the minimum four rule
-
 void objPos::setObjPos(objPos o)
 {
     pos->x = o.pos->x;
