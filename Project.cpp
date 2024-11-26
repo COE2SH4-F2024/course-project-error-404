@@ -111,7 +111,7 @@ void DrawScreen(void)
             else if (i == playerPos.pos->x && j == playerPos.pos->y) 
             {
                 MacUILib_printf("%c", playerPos.getSymbol()); //Dynamic Contents this was wrong before.
-            }
+            } 
             else
             {
                 MacUILib_printf(" "); //Static Contents
