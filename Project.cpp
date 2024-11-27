@@ -4,6 +4,9 @@
 
 #include "Player.h"         //kar
 #include "GameMechs.h"    //Kar
+
+#include "Food.h" //rahi
+#include <time.h> //rahi
  
 using namespace std;
 
@@ -13,6 +16,8 @@ Player *myplayer ;          //Pointer towards Player class (Dir[enum],Getlpayerp
 GameMechs *myGM;            //Pointer towards GameMechs Class (input ,exitFlag ,loseFlag ,score ,boardSizeX ,boardSizeY ,food )  //kar
 
 objPosArrayList *playerPosList; //Pointer towards objArrayList class !!!
+
+Food *myFoodItem;
 
 
 void Initialize(void);
@@ -46,12 +51,16 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
+    srand(time(NULL));
    
     //myplayer = new Player(nullptr);      //kar
     myGM = new GameMechs();
     myplayer = new Player(myGM);      //kar
     playerPosList = new objPosArrayList(); //kar
 
+    myFoodItem = new Food();
+
+    myFoodItem->generateFood(myplayer->getPlayerPos()->getHeadElement());
 
  
 }
@@ -106,6 +115,8 @@ void DrawScreen(void)
     int boardX = myGM->getBoardSizeX();
     int boardY = myGM->getBoardSizeY();
 
+    objPos foodPos = myFoodItem->getFoodPos();
+
     for(int j = 0; j < boardY; j++)
     {
         for (int i = 0; i < boardX; i++)
@@ -115,20 +126,12 @@ void DrawScreen(void)
             if (j == 0 || i == 0 || i == boardX - 1 || j == boardY - 1 )
             {
                 MacUILib_printf("#"); //Static Contents 
+            
             }
-            // else if (i == playerPos.pos->x && j == playerPos.pos->y) 
-            // {
-            //     MacUILib_printf("%c", playerPos.getSymbol()); //Dynamic Contents this was wrong before.
-            // } 
-            // else if (i == playerPos->getHeadElement().pos->x && j == playerPos->getHeadElement().pos->y) 
-            // {
-            //     //MacUILib_printf("%c", playerPosgetSymbol()); //Dynamic Contents this was wrong before.
-            //     //MacUILib_printf(const playerPos->getHeadElement().getSymbol());                            //YOUSEDD
-            //     MacUILib_printf("@");
-            // }// told to cmment out by chen 
-
-            
-            
+            else if(i == foodPos.pos->x && j == foodPos.pos->y)
+            {
+                MacUILib_printf("%c", foodPos.getSymbol());
+            }
             else
             {
                 bool exist = false;
@@ -137,8 +140,16 @@ void DrawScreen(void)
                     objPos thisseg = playerPos->getElement(k);
                     if(i == thisseg.getObjPos().pos->x && j == thisseg.getObjPos().pos->y)
                     {
-                        MacUILib_printf("@");
+                        if (k == 0)
+                        {
+                            MacUILib_printf("@");
+                        }
+                        else
+                        {
+                            MacUILib_printf("o");
+                        }
                         exist = true;
+                        break;
                     }
                 }
                 if(!exist)
