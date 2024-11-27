@@ -41,14 +41,23 @@ bool GameMechs::getLoseFlagStatus() const
     return loseFlag;
 }
     
-
-char GameMechs::getInput() 
+void GameMechs::collectAsyncInput()
 {
-   
     if(MacUILib_hasChar())
     {
         input = MacUILib_getChar();
     }
+     if(input == '`')
+    {
+        //myGM->setExitTrue();
+        exitFlag = true;
+    }   
+}
+
+char GameMechs::getInput() const
+{
+   
+    
     
     // Set two instances of exit    1.Snake eating itself   2.Player pressed Esc
 

@@ -22,11 +22,11 @@ int objPosArrayList::getSize() const
 
 void objPosArrayList::insertHead(objPos thisPos)
 {
-    if(listSize >= ARRAY_MAX_CAP) return;         //safety check 
+    if(listSize >= ARRAY_MAX_CAP) return; //safety check 
 
-    for(int i = 0; i < listSize; i++)
+    for(int i = listSize; i > 0; i--)
     {
-        aList[listSize] = aList[listSize-1];
+        aList[i] = aList[i-1];
     }
     aList[0] = thisPos;
     listSize++;
@@ -35,20 +35,16 @@ void objPosArrayList::insertHead(objPos thisPos)
 
 void objPosArrayList::insertTail(objPos thisPos)
 {
-     // Sanity Check (error checking)
-    if(listSize >= ARRAY_MAX_CAP) 
-    {
-        // you can also throw an exception
-        return;
-    }
+    if(listSize >= ARRAY_MAX_CAP) return; //safety check
 
     aList[listSize++] = thisPos;
+    //listSize++; above is post opertaion incremnet
 }
 
 void objPosArrayList::removeHead()
 {
 
-    if(listSize == 0) return;
+    if(listSize == 0) return; //safety check
 
     for(int i = 1; i < listSize; i++)
     {
@@ -59,6 +55,8 @@ void objPosArrayList::removeHead()
 
 void objPosArrayList::removeTail()
 {
+    if(listSize == 0) return;
+
     if(listSize > 0)
         listSize--;
 }
@@ -85,7 +83,7 @@ objPos objPosArrayList::getElement(int index) const
         index = 0;
     } 
      
-    else if(index >= listSize && listSize != 0)            // != 0 case it will push it to -1 , if 3 will go to 2
+    else if(index >= listSize && listSize != 0)  // != 0 case it will push it to -1 , if 3 will go to 2
     {
         index = listSize - 1;
     }
