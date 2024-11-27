@@ -10,9 +10,9 @@ using namespace std;
 #define DELAY_CONST 100000
 
 Player *myplayer ;          //Pointer towards Player class (Dir[enum],Getlpayerpos[objpos],updateplayerdir,Moveplayer) //kar
-
 GameMechs *myGM;            //Pointer towards GameMechs Class (input ,exitFlag ,loseFlag ,score ,boardSizeX ,boardSizeY ,food )  //kar
 
+objPosArrayList *playerPosList; //Pointer towards objArrayList class !!!
 
 
 void Initialize(void);
@@ -48,28 +48,29 @@ void Initialize(void)
 
    
     //myplayer = new Player(nullptr);      //kar
-     myGM = new GameMechs();
-     myplayer = new Player(myGM);      //kar
+    myGM = new GameMechs();
+    myplayer = new Player(myGM);      //kar
+    playerPosList = new objPosArrayList(); //kar
+
 
  
 }
 
 void GetInput(void)
 {
-    char input = myGM->getInput();
+    //char input = myGM->getInput();  -- will change into next line 
     
-    if(MacUILib_hasChar())
-    {
-        //myGM->setInput(myGM->getInput());
-        myGM->setInput(input);
-    }
-    
-    if(input == '`')
-    {
-        myGM->setExitTrue();
-    }   
+    myGM->collectAsyncInput();
+
+    // if(MacUILib_hasChar())
+    // {
+    //     //myGM->setInput(myGM->getInput());
+    //     myGM->setInput(input);
+    // }
+    //removed exit flag 
     //myplayer->movePlayer();
-    else ;
+    // else 
+    // ;
      
     //or is it get set input cuz we be checking for has input 
 }
@@ -98,30 +99,70 @@ void DrawScreen(void)
     length = myGM->getBoardSizeY();
 
 
-    objPos playerPos = myplayer->getPlayerPos();
+    //objPos playerPos = myplayer->getPlayerPos();
+    objPosArrayList* playerPos = myplayer->getPlayerPos();
+    int playersize = playerPos->getSize();
 
-    for(int j = 0; j < length; j++)
+    int boardX = myGM->getBoardSizeX();
+    int boardY = myGM->getBoardSizeY();
+
+    for(int j = 0; j < boardY; j++)
     {
-        for (int i = 0; i < width; i++)
+        for (int i = 0; i < boardX; i++)
         {
-            if (j == 0 || i == 0 || i == width - 1 || j == length - 1 )
+            // here is the trigger fo rth edo something to determine wethere to continour with the if else flag 
+
+            if (j == 0 || i == 0 || i == boardX - 1 || j == boardY - 1 )
             {
                 MacUILib_printf("#"); //Static Contents 
             }
-            else if (i == playerPos.pos->x && j == playerPos.pos->y) 
-            {
-                MacUILib_printf("%c", playerPos.getSymbol()); //Dynamic Contents this was wrong before.
-            } 
+            // else if (i == playerPos.pos->x && j == playerPos.pos->y) 
+            // {
+            //     MacUILib_printf("%c", playerPos.getSymbol()); //Dynamic Contents this was wrong before.
+            // } 
+            // else if (i == playerPos->getHeadElement().pos->x && j == playerPos->getHeadElement().pos->y) 
+            // {
+            //     //MacUILib_printf("%c", playerPosgetSymbol()); //Dynamic Contents this was wrong before.
+            //     //MacUILib_printf(const playerPos->getHeadElement().getSymbol());                            //YOUSEDD
+            //     MacUILib_printf("@");
+            // }// told to cmment out by chen 
+
+            
+            
             else
             {
-                MacUILib_printf(" "); //Static Contents
+                bool exist = false;
+                for(int k = 0; k < playersize; k++ )
+                {
+                    objPos thisseg = playerPos->getElement(k);
+                    if(i == thisseg.getObjPos().pos->x && j == thisseg.getObjPos().pos->y)
+                    {
+                        MacUILib_printf("@");
+                        exist = true;
+                    }
+                }
+                if(!exist)
+                {
+                    MacUILib_printf(" ");
+                }
+
+
+                //         //It 3 : check if the current segment is x,Y postion matches the (i,j) coordinates 
+                //         // If yes print the symbol 
+                //         /// wathc out we need ot skip if else block belwo if we hav eprinted something in the for loop; we need to use the boolean flag continue
+                //     //}
+                // }
+            
+            
             }
+
+
         }
         MacUILib_printf("\n"); //moves to next row, after writing on the prev row.
     }
     MacUILib_printf("\n");
 
-    MacUILib_printf("Player Position[x,y] = [%d, %d], %c",  playerPos.pos->x,playerPos.pos->y,playerPos.getSymbol() );// NOT WORKING CHECK                 )
+    //MacUILib_printf("Player Position[x,y] = [%d, %d], %c",  playerPos->getHeadElement().pos->x, playerPos->getHeadElement().pos->y );// NOT WORKING CHECK                 )
     //myplayer->getPlayerPos(); 
     //MacUILib_printf("Current input is %" ) 
     
@@ -143,6 +184,7 @@ void CleanUp(void)
 
     delete myplayer;
     delete myGM;
+    delete playerPosList;
 
     MacUILib_uninit();
 }
