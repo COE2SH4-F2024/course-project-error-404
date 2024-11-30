@@ -15,29 +15,45 @@ Food::~Food() //destructor
     //do we need it?
 }
 
-void Food::generateFood(objPos blockOff) //food generation, block off is player position
+void Food::generateFood(objPosArrayList* blockOff) //food generation, block off is player position
 {
     int width = 20;
-    int length = 10;
+    int length = 10; // gonna have to change in future.
 
     int myBitVx[width] = {0};
-    int myBitVy[length] = {0};
+    int myBitVy[length] = {0}; // Might need in future.
     int a, b, c;
 
     //generating x coordinate
 
-    do 
+    // for (int i = 0; i < blockOff->getSize(); i++) //iterate through the x coordinates of ALL the elements.
+    // {
+    //     do 
+    //     {
+    //         foodPos.pos->x = (rand() % (width - 2)) + 1; // gives a random number from 1 to width -2.
+    //         foodPos.pos->y = (rand() % (length - 2)) + 1; // gives a random number from 1 to length -2
+
+    //     } while ((foodPos.pos->x == blockOff->getElement(i).pos->x) && (foodPos.pos->y == blockOff->getElement(i).pos->y));
+    // }
+
+    bool validPos = false;
+
+    while(!validPos)
     {
-        foodPos.pos->x = rand() % width; // gives a random number from 0 to width -1.
+        foodPos.pos->x = (rand() % (width - 2)) + 1; // gives a random number from 1 to width -2.
+        foodPos.pos->y = (rand() % (length - 2)) + 1; // gives a random number from 1 to length -2
 
-    } while (foodPos.pos->x == blockOff.pos->x || foodPos.pos->x == 0 || foodPos.pos->x == width -1);
+        validPos = true; // assume new food position is valid initially
 
-    do
-    {
-        foodPos.pos->y = rand() % length; // gives a random number from 0 to length -1
-
-    } while (foodPos.pos->y == blockOff.pos->y || foodPos.pos->y == 0 || foodPos.pos->y == length -1);
-
+        for (int i = 0; i < blockOff->getSize(); i++)
+        {
+            if (foodPos.pos->x == blockOff->getElement(i).pos->x && foodPos.pos->y == blockOff->getElement(i).pos->y)
+            {
+                validPos = false; //The food coordinates are invalid
+                break; //no need to check further
+            }
+        }
+    }
 
     //asci numbers 0-127
     // usefull ones start from 33 - 126, cant use 35 (#) and 64 (@)

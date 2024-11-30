@@ -2,15 +2,17 @@
 
 
 
-Player::Player(GameMechs* thisGMRef)
+
+Player::Player(GameMechs* thisGMRef, Food* thisFoodRef)
 {
     mainGameMechsRef = thisGMRef;
+    mainFoodRef = thisFoodRef;
     
     playerPosList = new objPosArrayList();
     
     myDir = STOP;
 
-    objPos headPos(thisGMRef->getBoardSizeX()/2,thisGMRef->getBoardSizeY()/2,'@');
+    //objPos headPos(thisGMRef->getBoardSizeX()/2,thisGMRef->getBoardSizeY()/2,'@');
 
     // more actions to be included
     // playerPos.pos->x = 10;//mainGameMechsRef->getBoardSizeX()/2;                      // Kar
@@ -18,15 +20,7 @@ Player::Player(GameMechs* thisGMRef)
     // playerPos.symbol = '@';    
     //Cause of death IT:3                                               // Kar
 
-    playerPosList->insertHead(headPos);
-
-    for (int i = 0; i < 3; i++)
-    {
-        objPos bodyPos(headPos.pos->x, headPos.pos->y + i,'o'); 
-        playerPosList->insertTail(bodyPos);
-    }
-    //initializes a snake with length 4
-
+   
 
 }
 
@@ -102,49 +96,102 @@ void Player::movePlayer()
     NewHeadpos.pos->x = playerPosList->getHeadElement().pos->x;
     NewHeadpos.pos->y = playerPosList->getHeadElement().pos->y;
 
+    objPos food = mainFoodRef->getFoodPos();
    
     switch (myDir)
     { 
         // calculate the new head using the temp objpos 
         case UP:
             NewHeadpos.pos->y --;
-            if (NewHeadpos.pos->y <=0)
+            if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)
+            {
+                if (NewHeadpos.pos->y <=0)
                 {
                     NewHeadpos.pos->y = mainGameMechsRef->getBoardSizeY() - 2;
                 }
-            playerPosList->insertHead(NewHeadpos);
-            playerPosList->removeTail();
+                playerPosList->insertHead(NewHeadpos);
+                mainGameMechsRef->incrementScore();
+                mainFoodRef->generateFood(playerPosList);
+            }
+            else
+            {
+                if (NewHeadpos.pos->y <=0)
+                {
+                    NewHeadpos.pos->y = mainGameMechsRef->getBoardSizeY() - 2;
+                }
+                playerPosList->insertHead(NewHeadpos);
+                playerPosList->removeTail();
+            }
             break;
 
         case DOWN:
             //playerPos.pos->y++;
             NewHeadpos.pos->y ++;
-            if (NewHeadpos.pos->y >= mainGameMechsRef->getBoardSizeY() - 2)
+            if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)
+            {
+                if (NewHeadpos.pos->y > mainGameMechsRef->getBoardSizeY() - 2)
                 {
                     NewHeadpos.pos->y = 1;
                 }
-            playerPosList->insertHead(NewHeadpos);
-            playerPosList->removeTail();
+                playerPosList->insertHead(NewHeadpos);
+                mainGameMechsRef->incrementScore();
+                mainFoodRef->generateFood(playerPosList);
+            }
+            else
+            {
+                if (NewHeadpos.pos->y > mainGameMechsRef->getBoardSizeY() - 2)
+                {
+                    NewHeadpos.pos->y = 1;
+                }
+                playerPosList->insertHead(NewHeadpos);
+                playerPosList->removeTail();
+            }
             break;
 
         case LEFT:
             NewHeadpos.pos->x --;
-            if (NewHeadpos.pos->x <=0)
+            if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)
+            {
+                if (NewHeadpos.pos->x <=0)
                 {
                     NewHeadpos.pos->x = mainGameMechsRef->getBoardSizeX() - 2;
                 }
-            playerPosList->insertHead(NewHeadpos);
-            playerPosList->removeTail();
+                playerPosList->insertHead(NewHeadpos);
+                mainGameMechsRef->incrementScore();
+                mainFoodRef->generateFood(playerPosList);
+            }
+            else
+            {
+                if (NewHeadpos.pos->x <=0)
+                {
+                    NewHeadpos.pos->x = mainGameMechsRef->getBoardSizeX() - 2;
+                }
+                playerPosList->insertHead(NewHeadpos);
+                playerPosList->removeTail();
+            }
             break;
 
         case RIGHT:
             NewHeadpos.pos->x ++;
-            if (NewHeadpos.pos->x >= mainGameMechsRef->getBoardSizeX() - 2) // it had <= board x - 1 which is why D wasnt working.
+            if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)
+            {
+                if (NewHeadpos.pos->x > mainGameMechsRef->getBoardSizeX() - 2) // it had <= board x - 1 which is why D wasnt working.
                 {
                     NewHeadpos.pos->x = 1;
                 }
-            playerPosList->insertHead(NewHeadpos);
-            playerPosList->removeTail();
+                playerPosList->insertHead(NewHeadpos);
+                mainGameMechsRef->incrementScore();
+                mainFoodRef->generateFood(playerPosList);
+            }
+            else
+            {
+                if (NewHeadpos.pos->x > mainGameMechsRef->getBoardSizeX() - 2) // it had <= board x - 1 which is why D wasnt working.
+                {
+                    NewHeadpos.pos->x = 1;
+                }
+                playerPosList->insertHead(NewHeadpos);
+                playerPosList->removeTail();
+            }
             break;
     
         default:

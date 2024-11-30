@@ -15,8 +15,6 @@ using namespace std;
 Player *myplayer ;          //Pointer towards Player class (Dir[enum],Getlpayerpos[objpos],updateplayerdir,Moveplayer) //kar
 GameMechs *myGM;            //Pointer towards GameMechs Class (input ,exitFlag ,loseFlag ,score ,boardSizeX ,boardSizeY ,food )  //kar
 
-objPosArrayList *playerPosList; //Pointer towards objArrayList class !!!
-
 Food *myFoodItem;
 
 
@@ -55,12 +53,14 @@ void Initialize(void)
    
     //myplayer = new Player(nullptr);      //kar
     myGM = new GameMechs();
-    myplayer = new Player(myGM);      //kar
-    playerPosList = new objPosArrayList(); //kar
+        
 
     myFoodItem = new Food();
+    myplayer = new Player(myGM, myFoodItem);
 
-    myFoodItem->generateFood(myplayer->getPlayerPos()->getHeadElement());
+
+    myFoodItem->generateFood(myplayer->getPlayerPos());// give it the body as well?? just get player
+    
 
  
 }
@@ -146,7 +146,7 @@ void DrawScreen(void)
                         }
                         else
                         {
-                            MacUILib_printf("o");
+                            MacUILib_printf("@");
                         }
                         exist = true;
                         break;
@@ -172,6 +172,8 @@ void DrawScreen(void)
         MacUILib_printf("\n"); //moves to next row, after writing on the prev row.
     }
     MacUILib_printf("\n");
+    MacUILib_printf("Length: %d\n",myplayer->getPlayerPos()->getSize());
+    MacUILib_printf("Score: %d\n",myGM->getScore());
 
     //MacUILib_printf("Player Position[x,y] = [%d, %d], %c",  playerPos->getHeadElement().pos->x, playerPos->getHeadElement().pos->y );// NOT WORKING CHECK                 )
     //myplayer->getPlayerPos(); 
@@ -195,7 +197,7 @@ void CleanUp(void)
 
     delete myplayer;
     delete myGM;
-    delete playerPosList;
+    delete myFoodItem;
 
     MacUILib_uninit();
 }

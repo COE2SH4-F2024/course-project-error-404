@@ -5,9 +5,12 @@
 
 objPosArrayList::objPosArrayList()
 {
-    listSize = 0;
+    listSize = 1;
     arrayCapacity = ARRAY_MAX_CAP;
     aList = new objPos[ARRAY_MAX_CAP];
+
+
+    aList[0] = objPos(5,5,'@');
 }
 
 objPosArrayList::~objPosArrayList()
