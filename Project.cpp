@@ -91,6 +91,8 @@ void RunLogic(void)
     myplayer->updatePlayerDir();
     myplayer->movePlayer();
     
+    
+
     // just added these two lines here.
 
 

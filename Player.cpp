@@ -95,6 +95,9 @@ void Player::movePlayer()
     //NewHeadpos.setObjPos() = playerPosList->getHeadElement();
     NewHeadpos.pos->x = playerPosList->getHeadElement().pos->x;
     NewHeadpos.pos->y = playerPosList->getHeadElement().pos->y;
+    
+
+
 
     objPos food = mainFoodRef->getFoodPos();
    
@@ -197,6 +200,21 @@ void Player::movePlayer()
         default:
             break;
     }    
+    
+    
+
+    for (int i = 1; i < playerPosList->getSize() && mainGameMechsRef->getScore() > 3 ; i++)
+    {
+        if(NewHeadpos.pos->x == playerPosList->getElement(i).getObjPos().pos->x  && NewHeadpos.pos->y == playerPosList->getElement(i).getObjPos().pos->y )
+        // NewHeadpos.isPosEqual    
+        {
+            mainGameMechsRef->setLoseFlag();
+            mainGameMechsRef->setExitTrue();
+        }
+    }
+    
+
+
 
     //playerPosList->insertHead(NewHeadpos);
     //playerPosList->removeTail();
