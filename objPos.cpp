@@ -44,6 +44,10 @@ objPos::~objPos()
     delete pos;
 }
 
+void objPos::setsymbol(char sym)
+{
+    symbol = sym;
+}
 
 // Respect the rule of six / minimum four
 // [TODO] Implement the missing special member functions to meet the minimum four rule
@@ -71,7 +75,7 @@ objPos objPos::getObjPos() const
     return returnPos;
 }
 
-char objPos::getSymbol() const
+char objPos::getSymbol()
 {
     return symbol;
 }

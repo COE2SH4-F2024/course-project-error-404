@@ -1,61 +1,36 @@
 #include "Player.h"
 
-
-
-
 Player::Player(GameMechs* thisGMRef, Food* thisFoodRef)
 {
     mainGameMechsRef = thisGMRef;
     mainFoodRef = thisFoodRef;
-    
     playerPosList = new objPosArrayList();
     
     myDir = STOP;
-
-    //objPos headPos(thisGMRef->getBoardSizeX()/2,thisGMRef->getBoardSizeY()/2,'@');
-
-    // more actions to be included
-    // playerPos.pos->x = 10;//mainGameMechsRef->getBoardSizeX()/2;                      // Kar
-    // playerPos.pos->y = 5;//mainGameMechsRef->getBoardSizeY()/2;                       
-    // playerPos.symbol = '@';    
-    //Cause of death IT:3                                               // Kar
-
-   
-
 }
-
 
 Player::~Player()
 {
-    // delete any heap members here
-    // only when new is inttii -- kar 
     delete playerPosList;
 }
 
-//objPos Player::getPlayerPos() const
 objPosArrayList* Player::getPlayerPos() const
 {
     // return the reference to the playerPos arrray list
-
-    //return the reference to the player objPos array List
     return playerPosList;
-
 }
 
 void Player::updatePlayerDir()
-{
-    // PPA3 input processing logic
-    // int input = 70; what is this 
-
+{  
     char input  = mainGameMechsRef->getInput() ;
 
         switch(input)
         {                      
             case 'w':                                //Moving UP
             case 'W':
-                if(myDir != DOWN)                 //Why is it we dont use strring marks 
+                if(myDir != DOWN)                 
                     {
-                        myDir = UP;
+                        myDir = UP;                     
                     }
                     break;                  
             case 'a':                                    //Moving Left
@@ -84,28 +59,23 @@ void Player::updatePlayerDir()
         //Imm not sure if we need input = 0 anymore , but do check 
         input = 0;
     }
-    
 }
 
 void Player::movePlayer()
 {
-    //updatePlayerDir(); do not need this.
-
     objPos NewHeadpos;
-    //NewHeadpos.setObjPos() = playerPosList->getHeadElement();
+
     NewHeadpos.pos->x = playerPosList->getHeadElement().pos->x;
     NewHeadpos.pos->y = playerPosList->getHeadElement().pos->y;
-    
-
-
 
     objPos food = mainFoodRef->getFoodPos();
-   
+ 
     switch (myDir)
     { 
         // calculate the new head using the temp objpos 
         case UP:
-            NewHeadpos.pos->y --;
+            NewHeadpos.pos->y --;                                                             //Reducing y coordinates to move the snake 
+            NewHeadpos.setsymbol('^');                                                        //setting the head symbol 
             if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)
             {
                 if (NewHeadpos.pos->y <=0)
@@ -128,8 +98,8 @@ void Player::movePlayer()
             break;
 
         case DOWN:
-            //playerPos.pos->y++;
-            NewHeadpos.pos->y ++;
+            NewHeadpos.pos->y ++;                       //Increasing y coordinates to move the snake 
+            NewHeadpos.setsymbol('v');
             if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)
             {
                 if (NewHeadpos.pos->y > mainGameMechsRef->getBoardSizeY() - 2)
@@ -152,7 +122,8 @@ void Player::movePlayer()
             break;
 
         case LEFT:
-            NewHeadpos.pos->x --;
+            NewHeadpos.pos->x --;                           //Reducing x coordinates to move the snake 
+            NewHeadpos.setsymbol('<');
             if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)
             {
                 if (NewHeadpos.pos->x <=0)
@@ -175,7 +146,8 @@ void Player::movePlayer()
             break;
 
         case RIGHT:
-            NewHeadpos.pos->x ++;
+            NewHeadpos.pos->x ++;                       //Increasing x coordinates to move the snake 
+            NewHeadpos.setsymbol('>');
             if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)
             {
                 if (NewHeadpos.pos->x > mainGameMechsRef->getBoardSizeX() - 2) // it had <= board x - 1 which is why D wasnt working.
@@ -206,19 +178,10 @@ void Player::movePlayer()
     for (int i = 1; i < playerPosList->getSize() && mainGameMechsRef->getScore() > 3 ; i++)
     {
         if(NewHeadpos.pos->x == playerPosList->getElement(i).getObjPos().pos->x  && NewHeadpos.pos->y == playerPosList->getElement(i).getObjPos().pos->y )
-        // NewHeadpos.isPosEqual    
         {
             mainGameMechsRef->setLoseFlag();
             mainGameMechsRef->setExitTrue();
         }
     }
-    
-
-
-
-    //playerPosList->insertHead(NewHeadpos);
-    //playerPosList->removeTail();
-
 }
 
-// More methods to be added
