@@ -27,14 +27,16 @@ int main(void)
 {
     Initialize();
 
-    while(myGM->getExitFlagStatus() == false)  //program updated to retrive get flag from game mechs - kar
+    while(myGM->getExitFlagStatus() == false && myGM->getLoseFlagStatus() == false)  //program updated to retrive get flag from game mechs - kar
     {
         GetInput();
         RunLogic();
         DrawScreen();
         LoopDelay();
     }
+    
     CleanUp();
+
 }
 
 void Initialize(void)
@@ -54,12 +56,12 @@ void Initialize(void)
 
 void GetInput(void)
 {  
-    myGM->collectAsyncInput();
+    myGM->collectAsyncInput();                      //???
 }
 
 void RunLogic(void)
 {
-    myplayer->updatePlayerDir();
+    myplayer->updatePlayerDir();                //Regular update of game to create movement and update 
     myplayer->movePlayer();
 }
 
@@ -119,6 +121,8 @@ void DrawScreen(void)
     MacUILib_printf("Use 'W' 'A' 's' 'D' to move\n");
     MacUILib_printf("Snake Length: %d\n",myplayer->getPlayerPos()->getSize());
     MacUILib_printf("Score: %d\n",myGM->getScore());
+    MacUILib_printf("\n Press ` to quit the game  ");
+
 }
 
 void LoopDelay(void)
@@ -128,7 +132,17 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen(); 
+
+    if(myGM->getExitFlagStatus() == true)
+    {
+        MacUILib_printf("Quiting isn't the failure - believing you couldn't was\n\n");
+    }
+    
+    else if (myGM->getLoseFlagStatus() == true)
+    {
+        MacUILib_printf("You should've had you're breakfast XO\n\n");
+    }    
 
     delete myplayer;               //Freeing up variables on Heap memory 
     delete myGM;

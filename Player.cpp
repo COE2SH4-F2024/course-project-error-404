@@ -65,7 +65,7 @@ void Player::movePlayer()
 {
     objPos NewHeadpos;
 
-    NewHeadpos.pos->x = playerPosList->getHeadElement().pos->x;
+    NewHeadpos.pos->x = playerPosList->getHeadElement().pos->x;                         //References towards objPos using NewHeadpos to utilize x,y cooridnates
     NewHeadpos.pos->y = playerPosList->getHeadElement().pos->y;
 
     objPos food = mainFoodRef->getFoodPos();
@@ -76,15 +76,15 @@ void Player::movePlayer()
         case UP:
             NewHeadpos.pos->y --;                                                             //Reducing y coordinates to move the snake 
             NewHeadpos.setsymbol('^');                                                        //setting the head symbol 
-            if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)
+            if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)         //Food has been consumed!
             {
                 if (NewHeadpos.pos->y <=0)
                 {
                     NewHeadpos.pos->y = mainGameMechsRef->getBoardSizeY() - 2;
                 }
-                playerPosList->insertHead(NewHeadpos);
-                mainGameMechsRef->incrementScore();
-                mainFoodRef->generateFood(playerPosList);
+                playerPosList->insertHead(NewHeadpos);                                        //Insertion of head
+                mainGameMechsRef->incrementScore();                                            //Increase score 
+                mainFoodRef->generateFood(playerPosList);                                       //New food generation as the previous one was finished
             }
             else
             {
@@ -92,13 +92,13 @@ void Player::movePlayer()
                 {
                     NewHeadpos.pos->y = mainGameMechsRef->getBoardSizeY() - 2;
                 }
-                playerPosList->insertHead(NewHeadpos);
+                playerPosList->insertHead(NewHeadpos);                              //Regular wrap around logic navigating throught edges
                 playerPosList->removeTail();
             }
             break;
 
         case DOWN:
-            NewHeadpos.pos->y ++;                       //Increasing y coordinates to move the snake 
+            NewHeadpos.pos->y ++;                                            //Increasing y coordinates to move the snake 
             NewHeadpos.setsymbol('v');
             if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)
             {
@@ -175,12 +175,12 @@ void Player::movePlayer()
     
     
 
-    for (int i = 1; i < playerPosList->getSize() && mainGameMechsRef->getScore() > 3 ; i++)
+    for (int i = 1; i < playerPosList->getSize() && mainGameMechsRef->getScore() > 3 ; i++)                                             //Self-eat Death case
     {
-        if(NewHeadpos.pos->x == playerPosList->getElement(i).getObjPos().pos->x  && NewHeadpos.pos->y == playerPosList->getElement(i).getObjPos().pos->y )
+        if(NewHeadpos.pos->x == playerPosList->getElement(i).getObjPos().pos->x  && NewHeadpos.pos->y == playerPosList->getElement(i).getObjPos().pos->y )  //If body position and tail position matches anywhere 
         {
             mainGameMechsRef->setLoseFlag();
-            mainGameMechsRef->setExitTrue();
+            //mainGameMechsRef->setExitTrue();
         }
     }
 }

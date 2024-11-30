@@ -8,8 +8,8 @@ You must watch the briefing video and read through the manual to engage in the d
 Section: [Insert your lab section]
 
 Team Information
-Member 1 MacID: Pusapatk    
-Member 1 StudentID: 400432390
+Member 1 MacID: [Pusapatk]    
+Member 1 StudentID: [400432390]
 
 Member 2 MacID: [alir49]
 Member 2 StudentID: [400464816]

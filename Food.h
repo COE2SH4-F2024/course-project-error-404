@@ -15,17 +15,12 @@ class Food
     public:
         Food();
         ~Food();
-
+        
         void generateFood(objPosArrayList* blockOff);
         objPos getFoodPos() const;
 
-
-
     private:
         objPos foodPos;
-
-
-
 };
 
 #endif

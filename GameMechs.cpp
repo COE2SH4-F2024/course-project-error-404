@@ -1,8 +1,6 @@
 #include "GameMechs.h"
 #include "MacUILib.h"
 
-
-
 GameMechs::GameMechs()
 {
     input = 0;
@@ -28,7 +26,7 @@ GameMechs::GameMechs(int boardX, int boardY)
 // do you need a destructor?
 GameMechs::~GameMechs()
 {
-    //~remember to add , currently not needed 
+   
 }
 
 bool GameMechs::getExitFlagStatus() const
@@ -48,7 +46,7 @@ void GameMechs::collectAsyncInput()
         input = MacUILib_getChar();
     }
      if(input == '`')
-    {
+    {   
         //myGM->setExitTrue();
         exitFlag = true;
     }   
@@ -56,13 +54,7 @@ void GameMechs::collectAsyncInput()
 
 char GameMechs::getInput() const
 {
-   
-    
-    
-    // Set two instances of exit    1.Snake eating itself   2.Player pressed Esc
-
     return input; 
-
 }
 
 int GameMechs::getScore() const
@@ -85,7 +77,6 @@ int GameMechs::getBoardSizeY() const
     return boardSizeY;
 }
 
-
 void GameMechs::setExitTrue()
 {
     exitFlag = true;
@@ -106,4 +97,3 @@ void GameMechs::clearInput()
     input = 0;  //IF KARTHIK IS NOT wrong
 }
 
-// More methods should be added here
