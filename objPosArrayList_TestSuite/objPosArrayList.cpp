@@ -8,11 +8,18 @@ objPosArrayList::objPosArrayList()
     listSize = 0;
     arrayCapacity = ARRAY_MAX_CAP;
     aList = new objPos[ARRAY_MAX_CAP];
+<<<<<<< HEAD
+}
+
+objPosArrayList::~objPosArrayList()
+{    
+=======
    // aList[0] = objPos(5,5,'@');
 }
 
 objPosArrayList::~objPosArrayList()
 {   
+>>>>>>> 6a01341172a469758bff5ac82609132c77a1a14d
     delete[] aList;
 }
 

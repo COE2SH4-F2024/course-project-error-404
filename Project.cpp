@@ -117,7 +117,7 @@ void DrawScreen(void)
         MacUILib_printf("\n");              //moves to next row, after writing on the prev row.
     }
     MacUILib_printf("\n");
-    MacUILib_printf("Use 'W' 'A' 's' 'D' to move\n");
+    MacUILib_printf("Use 'W' 'A' 'S' 'D' to move\n");
     MacUILib_printf("Snake Length: %d\n",myplayer->getPlayerPos()->getSize());
     MacUILib_printf("Score: %d\n",myGM->getScore());
     MacUILib_printf("\n Press ` to quit the game  ");
