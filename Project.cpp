@@ -35,7 +35,7 @@ int main(void)
         LoopDelay();
     }
     
-    //CleanUp();
+    CleanUp();
 
 }
 
