@@ -35,7 +35,7 @@ int main(void)
         LoopDelay();
     }
     
-    CleanUp();
+    //CleanUp();
 
 }
 
@@ -50,7 +50,6 @@ void Initialize(void)
     myplayer = new Player(myGM, myFoodItem);            //Creating a new reference to Player 
 
     myFoodItem->generateFood(myplayer->getPlayerPos());
-
  
 }
 

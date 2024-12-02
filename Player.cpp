@@ -76,12 +76,12 @@ void Player::movePlayer()
         case UP:
             NewHeadpos.pos->y --;                                                             //Reducing y coordinates to move the snake 
             NewHeadpos.setsymbol('^');                                                        //setting the head symbol 
-            if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)         //Food has been consumed!
-            {
-                if (NewHeadpos.pos->y <=0)
+            if (NewHeadpos.pos->y <=0)
                 {
                     NewHeadpos.pos->y = mainGameMechsRef->getBoardSizeY() - 2;
                 }
+            if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)         //Food has been consumed!
+            {
                 playerPosList->insertHead(NewHeadpos);                                        //Insertion of head
                 mainGameMechsRef->incrementScore();                                            //Increase score 
                 mainFoodRef->generateFood(playerPosList);                                       //New food generation as the previous one was finished
@@ -100,12 +100,12 @@ void Player::movePlayer()
         case DOWN:
             NewHeadpos.pos->y ++;                                            //Increasing y coordinates to move the snake 
             NewHeadpos.setsymbol('v');
-            if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)
-            {
-                if (NewHeadpos.pos->y > mainGameMechsRef->getBoardSizeY() - 2)
+            if (NewHeadpos.pos->y > mainGameMechsRef->getBoardSizeY() - 2)
                 {
                     NewHeadpos.pos->y = 1;
                 }
+            if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)
+            {
                 playerPosList->insertHead(NewHeadpos);
                 mainGameMechsRef->incrementScore();
                 mainFoodRef->generateFood(playerPosList);
@@ -124,12 +124,13 @@ void Player::movePlayer()
         case LEFT:
             NewHeadpos.pos->x --;                           //Reducing x coordinates to move the snake 
             NewHeadpos.setsymbol('<');
-            if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)
-            {
-                if (NewHeadpos.pos->x <=0)
+            if (NewHeadpos.pos->x <=0)
                 {
                     NewHeadpos.pos->x = mainGameMechsRef->getBoardSizeX() - 2;
                 }
+            if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)
+            {
+                
                 playerPosList->insertHead(NewHeadpos);
                 mainGameMechsRef->incrementScore();
                 mainFoodRef->generateFood(playerPosList);
@@ -148,12 +149,12 @@ void Player::movePlayer()
         case RIGHT:
             NewHeadpos.pos->x ++;                       //Increasing x coordinates to move the snake 
             NewHeadpos.setsymbol('>');
-            if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)
-            {
-                if (NewHeadpos.pos->x > mainGameMechsRef->getBoardSizeX() - 2) // it had <= board x - 1 which is why D wasnt working.
+            if (NewHeadpos.pos->x > mainGameMechsRef->getBoardSizeX() - 2) // it had <= board x - 1 which is why D wasnt working.
                 {
                     NewHeadpos.pos->x = 1;
                 }
+            if (NewHeadpos.pos->y == food.pos->y && NewHeadpos.pos->x == food.pos->x)
+            {
                 playerPosList->insertHead(NewHeadpos);
                 mainGameMechsRef->incrementScore();
                 mainFoodRef->generateFood(playerPosList);
